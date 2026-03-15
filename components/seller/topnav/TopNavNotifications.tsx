@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Bell, ShoppingBag, MessageSquare, AlertCircle, Zap, ArrowUpRight } from "lucide-react";
+import { Bell, ShoppingBag, MessageSquare, CircleAlert as AlertCircle, Zap, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {

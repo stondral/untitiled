@@ -11,6 +11,8 @@ import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from 
 import { motion, AnimatePresence } from "framer-motion";
 import AuthDropdown from "@/components/auth/AuthDropdown";
 import Cart from "@/components/cart/Cart";
+import VoiceSearchTrigger from "@/components/search/VoiceSearchTrigger";
+import VoiceSearchOverlay from "@/components/search/VoiceSearchOverlay";
 
 import logoston from "./logoston.png";
 
@@ -28,10 +30,11 @@ export default function Navbar() {
    const [isScrolled, setIsScrolled] = useState(false);
    const [isSearchVisible, setIsSearchVisible] = useState(false);
    const [isMenuOpen, setIsMenuOpen] = useState(false);
-   const isFeedbackPage = pathname === "/feedback";
+   const [isVoiceOverlayOpen, setIsVoiceOverlayOpen] = useState(false);
+   const isImmersivePage = pathname === "/feedback" || pathname === "/meetus";
 
   useEffect(() => {
-    if (!isFeedbackPage) return;
+    if (!isImmersivePage) return;
     
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 100);
@@ -39,11 +42,11 @@ export default function Navbar() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [isFeedbackPage]);
+  }, [isImmersivePage]);
 
   return (
     <nav className={`sticky top-4 z-50 w-[95%] max-w-7xl mx-auto rounded-2xl border border-gray-200 dark:border-gray-800 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] ring-1 ring-black/5 transition-all duration-300 ${
-      isFeedbackPage && isScrolled ? "opacity-0 pointer-events-none -translate-y-full" : "opacity-100"
+      isImmersivePage && isScrolled ? "opacity-0 pointer-events-none -translate-y-full" : "opacity-100"
     }`}>
       <div className="container flex h-16 items-center px-4 md:px-8 relative overflow-hidden">
         <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-accent/10 via-transparent to-accent/10 pointer-events-none opacity-50" />
@@ -110,7 +113,7 @@ export default function Navbar() {
               <div className="p-6 rounded-[2rem] bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-xl shadow-orange-200">
                 <p className="text-[10px] font-black uppercase tracking-widest opacity-80 mb-1">Partner with us</p>
                 <h4 className="text-xl font-black mb-4 tracking-tight">Become a Stond Seller</h4>
-                <Link href="/auth/register" onClick={() => setIsMenuOpen(false)}>
+                <Link href="/auth" onClick={() => setIsMenuOpen(false)}>
                   <Button className="w-full bg-white text-orange-600 hover:bg-white/90 rounded-xl font-black text-xs uppercase tracking-widest border-none h-12">
                     Join Today
                   </Button>
@@ -172,8 +175,11 @@ export default function Navbar() {
                 name="q"
                 type="search"
                 placeholder="Search products..."
-                className="h-9 pl-10 bg-card border-transparent focus-visible:ring-accent"
+                className="h-9 pl-10 pr-10 bg-card border-transparent focus-visible:ring-accent"
               />
+              <div className="absolute right-2 top-1/2 -translate-y-1/2 z-30 flex items-center">
+                <VoiceSearchTrigger onOpen={() => setIsVoiceOverlayOpen(true)} />
+              </div>
             </form>
           </div>
 
@@ -221,8 +227,11 @@ export default function Navbar() {
                   type="search"
                   autoFocus
                   placeholder="Search products..."
-                  className="h-10 pl-10 pr-4 w-full bg-accent/50 border-none rounded-xl focus-visible:ring-1 focus-visible:ring-accent"
+                  className="h-10 pl-10 pr-10 w-full bg-accent/50 border-none rounded-xl focus-visible:ring-1 focus-visible:ring-accent"
                 />
+                <div className="absolute right-2 top-1/2 -translate-y-1/2 z-30 flex items-center">
+                  <VoiceSearchTrigger onOpen={() => setIsVoiceOverlayOpen(true)} />
+                </div>
               </form>
               <Button 
                 variant="ghost" 
@@ -233,6 +242,12 @@ export default function Navbar() {
                 Cancel
               </Button>
             </motion.div>
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {isVoiceOverlayOpen && (
+            <VoiceSearchOverlay onClose={() => setIsVoiceOverlayOpen(false)} />
           )}
         </AnimatePresence>
       </div>

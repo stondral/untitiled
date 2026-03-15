@@ -28,6 +28,13 @@ import { Wishlist } from "./collections/Wishlist"
 import { Reviews } from "./collections/Reviews";
 import { MediaFolders } from "./collections/MediaFolders";
 import { VerificationSessions } from "./collections/VerificationSessions";
+import { Meetings } from "./collections/Meetings";
+import { Availability } from "./collections/Availability";
+import { Leads } from "./collections/Leads";
+import { EmailLogs } from "./collections/EmailLogs";
+import { CallLogs } from "./collections/CallLogs";
+import { EmailTemplates } from "./collections/EmailTemplates";
+import { ProductRequests } from "./collections/ProductRequests";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -39,7 +46,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, MediaFolders, Categories, Products, Orders, Addresses, Feedback, Warehouses, DiscountCodes, Sellers, SellerMembers, TeamInvites, Carts, SupportTickets, SupportMessages, Wishlist, Reviews, VerificationSessions],
+  collections: [Users, Media, MediaFolders, Categories, Products, Orders, Addresses, Feedback, Warehouses, DiscountCodes, Sellers, SellerMembers, TeamInvites, Carts, SupportTickets, SupportMessages, Wishlist, Reviews, VerificationSessions, Meetings, Availability, Leads, EmailLogs, CallLogs, EmailTemplates, ProductRequests],
   onInit: async () => {
     try {
       // Enforce a 3-day (259200 seconds) TTL on support messages

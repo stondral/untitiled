@@ -27,6 +27,7 @@ export async function getFilteredProducts(params: GetProductsParams) {
             { name: { contains: q } },
             { description: { contains: q } },
             { slug: { contains: q } },
+            { 'tags.tag': { contains: q } },
         ];
     }
 

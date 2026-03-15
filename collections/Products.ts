@@ -177,6 +177,41 @@ export const Products: CollectionConfig = {
         }
         return data
       },
+
+      // 🔥 AUTO-AGGREGATE TAGS FROM MEDIA
+      async ({ data, req }) => {
+        if (data.media && Array.isArray(data.media) && data.media.length > 0) {
+          try {
+            const mediaDocs = await Promise.all(
+              data.media.map((m: any) => {
+                const id = typeof m === 'object' ? m.id : m;
+                return req.payload.findByID({
+                  collection: 'media',
+                  id,
+                  depth: 0,
+                });
+              })
+            );
+
+            const allTags = new Set<string>();
+            mediaDocs.forEach((m: any) => {
+              if (m.tags && Array.isArray(m.tags)) {
+                m.tags.forEach((t: any) => {
+                  if (t.tag) allTags.add(t.tag.toLowerCase().trim());
+                });
+              }
+            });
+
+            if (allTags.size > 0) {
+              data.tags = Array.from(allTags).map(tag => ({ tag }));
+              console.log(`[Product Hook] Aggregated ${allTags.size} tags for product`);
+            }
+          } catch (err) {
+            console.error('[Product Hook] Failed to aggregate tags:', err);
+          }
+        }
+        return data;
+      },
     ],
 
     // Redis Cache Invalidation
@@ -479,6 +514,20 @@ export const Products: CollectionConfig = {
       type: 'relationship',
       relationTo: 'categories' as CollectionSlug,
       required: true,
+    },
+    {
+      name: 'tags',
+      type: 'array',
+      index: true,
+      fields: [
+        {
+          name: 'tag',
+          type: 'text',
+        },
+      ],
+      admin: {
+        description: 'Keywords for search matching (auto-synced from image tags)',
+      },
     },
 
     {

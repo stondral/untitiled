@@ -9,7 +9,7 @@ import {
   Save, 
   X, 
   CheckCircle, 
-  AlertCircle,
+  CircleAlert as AlertCircle,
   Hash,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";

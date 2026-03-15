@@ -15,7 +15,7 @@ import {
   Edit2, 
   X, 
   Check, 
-  AlertCircle,
+  CircleAlert as AlertCircle,
   Warehouse,
   Loader2
 } from "lucide-react"

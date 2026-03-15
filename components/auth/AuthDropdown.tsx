@@ -180,7 +180,7 @@ export default function AuthDropdown() {
               <DropdownMenuSeparator className="my-2" />
               <DropdownMenuGroup>
                 <DropdownMenuItem asChild>
-                  <Link href="/admin" className="flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800">
+                  <Link href="/administrator" className="flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800">
                     <Shield className="h-4 w-4 text-red-500" />
                     <span className="font-medium">Admin Panel</span>
                   </Link>

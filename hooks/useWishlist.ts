@@ -1,6 +1,7 @@
 'use client'
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useAuth } from '@/components/auth/AuthContext';
 
 /**
  * useWishlist Hook
@@ -66,6 +67,7 @@ async function removeFromWishlistAPI(productId: string): Promise<Wishlist> {
  */
 export function useWishlist() {
   const queryClient = useQueryClient();
+  const { isAuthenticated } = useAuth();
 
   // Fetch wishlist
   const {
@@ -79,6 +81,7 @@ export function useWishlist() {
     staleTime: 7 * 24 * 60 * 60 * 1000, // 7 days (matches Redis TTL)
     gcTime: 14 * 24 * 60 * 60 * 1000, // 14 days
     refetchOnWindowFocus: false,
+    enabled: isAuthenticated,
   });
 
   // Add to wishlist mutation with optimistic update

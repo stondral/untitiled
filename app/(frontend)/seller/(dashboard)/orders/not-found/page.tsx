@@ -3,7 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { AlertCircle, ShoppingBag, ArrowLeft } from "lucide-react";
+import { CircleAlert as AlertCircle, ShoppingBag, ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function OrderNotFound() {

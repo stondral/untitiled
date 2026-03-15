@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { AlertCircle, RefreshCw, ShoppingCart, MessageSquare } from "lucide-react";
+import { CircleAlert as AlertCircle, RefreshCw, ShoppingCart, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Suspense } from "react";
 

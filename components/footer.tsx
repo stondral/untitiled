@@ -115,7 +115,7 @@ export default function Footer() {
                 Collector&apos;s Wishlist
               </Link>
               <Link
-                href="/auth/register"
+                href="/auth"
                 className="flex items-center gap-2 text-gray-700 hover:text-orange-500 transition-all text-sm font-medium group"
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-orange-200 group-hover:bg-orange-500 transition-colors" />

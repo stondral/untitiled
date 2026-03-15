@@ -13,7 +13,12 @@ export function ChatButton() {
   const [ticket, setTicket] = useState<{ id: string; status: string } | null>(null);
   const [loading, setLoading] = useState(false);
   const pathname = usePathname();
+  const isOrdersPage = pathname?.startsWith("/orders") || 
+                       pathname?.startsWith("/order-success") || 
+                       pathname?.startsWith("/order-failure");
   const { user } = useAuth();
+
+  if (!isOrdersPage) return null;
 
   // Detect Order ID from URL
   const orderId = pathname?.startsWith("/orders/") ? pathname.split("/")[2] : null;

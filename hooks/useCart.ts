@@ -2,6 +2,7 @@
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import type { RedisCartItem } from '@/lib/redis/types';
+import { useAuth } from '@/components/auth/AuthContext';
 
 /**
  * useCart Hook
@@ -83,6 +84,7 @@ async function updateCartAPI(items: RedisCartItem[]): Promise<RedisCartItem[]> {
  */
 export function useCart() {
   const queryClient = useQueryClient();
+  const { isAuthenticated } = useAuth();
 
   // Query for fetching cart
   const {
@@ -96,6 +98,7 @@ export function useCart() {
     staleTime: 5 * 60 * 1000, // 5 minutes
     gcTime: 10 * 60 * 1000, // 10 minutes
     refetchOnWindowFocus: false,
+    enabled: isAuthenticated,
   });
 
   // Mutation for adding item to cart
@@ -296,11 +299,14 @@ export function useCart() {
  * Useful for navbar badge without subscribing to full cart
  */
 export function useCartCount() {
+  const { isAuthenticated } = useAuth();
+
   const { data: items = [] } = useQuery({
     queryKey: ['cart'],
     queryFn: fetchCart,
     staleTime: 5 * 60 * 1000,
     select: (data) => data.reduce((total, item) => total + item.quantity, 0),
+    enabled: isAuthenticated,
   });
 
   return items;

@@ -4,11 +4,21 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import {
   LayoutDashboard,
-  ShoppingBag,
   ChevronLeft,
   ChevronRight,
   MessageSquare,
   ShieldCheck,
+  CalendarDays,
+  Package,
+  Users,
+  Ticket,
+  MessageCircle,
+  Star,
+  Settings,
+  Truck,
+  Megaphone,
+  Layout,
+  Zap
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -27,9 +37,59 @@ const adminLinks = [
     href: "/administrator",
   },
   {
+    title: "Orders",
+    icon: Package,
+    href: "/administrator/orders",
+  },
+  {
+    title: "Users & Sellers",
+    icon: Users,
+    href: "/administrator/users",
+  },
+  {
     title: "Product Approval",
     icon: ShieldCheck,
     href: "/administrator/products",
+  },
+  {
+    title: "AI Discovery",
+    icon: Zap,
+    href: "/administrator/ai-tags",
+  },
+  {
+    title: "Discount Codes",
+    icon: Ticket,
+    href: "/administrator/discounts",
+  },
+  {
+    title: "Feedback",
+    icon: MessageCircle,
+    href: "/administrator/feedback",
+  },
+  {
+    title: "Reviews",
+    icon: Star,
+    href: "/administrator/reviews",
+  },
+  {
+    title: "Warehouses",
+    icon: Truck,
+    href: "/administrator/warehouses",
+  },
+  {
+    title: "Meetings",
+    icon: CalendarDays,
+    href: "/administrator/meetings",
+  },
+  {
+    title: "Marketing",
+    icon: Megaphone,
+    href: "/administrator/marketing",
+  },
+  {
+    title: "Intelligence Templates",
+    icon: Layout,
+    href: "/administrator/marketing/templates",
   },
   {
     title: "Support Panel",
@@ -37,14 +97,9 @@ const adminLinks = [
     href: "/administrator/support",
   },
   {
-    title: "Inventory",
-    icon: ShoppingBag,
-    href: "/administrator/inventory",
-  },
-  {
-      title: "Settings",
-      icon: LayoutDashboard, // Placeholder
-      href: "/administrator/settings",
+    title: "Settings",
+    icon: Settings,
+    href: "/administrator/settings",
   }
 ];
 
@@ -55,7 +110,7 @@ export function AdminSidebar({ className, user }: AdminSidebarProps) {
   return (
     <div
       className={cn(
-        "bg-slate-900 text-slate-400 h-screen flex flex-col border-r border-slate-800 relative transition-all duration-300",
+        "bg-slate-900 text-slate-400 h-screen flex flex-col border-r border-slate-800 relative transition-all duration-300 overflow-hidden",
         isCollapsed ? "w-20" : "w-72",
         className
       )}
@@ -74,13 +129,15 @@ export function AdminSidebar({ className, user }: AdminSidebarProps) {
         {!isCollapsed && (
           <div>
             <span className="text-lg font-black text-white">
-              Admin <span className="text-indigo-400">Panel</span>
+              CRM Admin <span className="text-indigo-400">v2.1</span>
             </span>
           </div>
         )}
       </div>
 
-      <div className="flex-1 overflow-y-auto py-6 px-4 space-y-2">
+      <div 
+        className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden py-6 px-4 space-y-2 scrollbar-hide no-scrollbar" 
+      >
         {adminLinks.map((link) => (
           <Link key={link.href} href={link.href}>
             <div
@@ -100,7 +157,7 @@ export function AdminSidebar({ className, user }: AdminSidebarProps) {
       </div>
 
       {user && !isCollapsed && (
-        <div className="p-4 border-t border-slate-800 flex items-center gap-3">
+        <div className="p-4 border-t border-slate-800 flex items-center gap-3 bg-slate-900 shadow-[0_-10px_20px_rgba(0,0,0,0.2)] z-10 shrink-0">
           <div className="h-10 w-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-black">
             {user.email?.[0]}
           </div>

@@ -305,5 +305,37 @@ export const Users: CollectionConfig = {
     },
     // ❌ Removed: emailVerified, emailVerifyToken, emailVerifyExpires
     // Payload handles these internally now.
+
+    // ─── 2FA / TOTP Step-Up Authentication ───
+    {
+      name: "twoFactorEnabled",
+      type: "checkbox",
+      defaultValue: false,
+      admin: {
+        position: "sidebar",
+        description: "Whether TOTP 2FA is enabled for this user",
+      },
+    },
+    {
+      name: "twoFactorSecret",
+      type: "text",
+      admin: {
+        position: "sidebar",
+        description: "TOTP secret (encrypted). Do not edit manually.",
+        readOnly: true,
+      },
+      access: {
+        read: ({ req }) => (req.user as any)?.role === "admin",
+      },
+    },
+    {
+      name: "lastStepUpAt",
+      type: "date",
+      admin: {
+        position: "sidebar",
+        description: "Last time the user verified TOTP for step-up auth",
+        readOnly: true,
+      },
+    },
   ],
 }

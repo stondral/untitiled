@@ -49,7 +49,7 @@ export default function AddressClient({
       if (!result.success) {
         alert(result.error || "Failed to delete address");
       }
-    } catch (_err) {
+    } catch {
       alert("An unexpected error occurred");
     } finally {
       setLoading((prev) => ({ ...prev, [id]: false }));
@@ -64,7 +64,7 @@ export default function AddressClient({
       if (!result.success) {
         alert(result.error || "Failed to set default address");
       }
-    } catch (_err) {
+    } catch {
       alert("An unexpected error occurred");
     } finally {
       setLoading((prev) => ({ ...prev, [id]: false }));

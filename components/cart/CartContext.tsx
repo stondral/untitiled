@@ -9,7 +9,7 @@ import React, {
   useRef,
 } from "react";
 
-import { CartClient, CartContextType, CartItemClient } from "./cart.types";
+import { CartClient, CartContextType } from "./cart.types";
 import { loadCart, saveCart, clearCart as clearLocalCart } from "./cart.storage";
 import { upsertItem } from "./cart.utils";
 import { mergeGuestCart } from "./cart.api";

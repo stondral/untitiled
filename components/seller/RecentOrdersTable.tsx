@@ -188,7 +188,7 @@ export function RecentOrdersTable({ orders }: RecentOrdersTableProps) {
                       </div>
                     </TableCell>
                     <TableCell className="text-right font-black text-slate-900 dark:text-white text-xl tabular-nums tracking-tighter">
-                      ₹{(order.total || 0).toLocaleString()}
+                      ₹{(order.totalAmount !== undefined ? order.totalAmount : (order.total || 0)).toLocaleString('en-IN')}
                       <div className="flex items-center justify-end gap-1.5 mt-1">
                         <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
                         <span className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">Completed</span>

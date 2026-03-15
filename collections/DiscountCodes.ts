@@ -106,6 +106,32 @@ export const DiscountCodes: CollectionConfig = {
       },
     },
     {
+      name: "oneTimeUsePerUser",
+      type: "checkbox",
+      defaultValue: false,
+      admin: {
+        description: "If enabled, each user can only use this code once.",
+        position: "sidebar",
+      },
+    },
+    {
+      name: "minItemsCount",
+      type: "number",
+      min: 0,
+      admin: {
+        description: "Minimum number of items required in cart (optional)",
+      },
+    },
+    {
+      name: "applicableCategories",
+      type: "relationship",
+      relationTo: "categories",
+      hasMany: true,
+      admin: {
+        description: "Limit this discount to specific categories (optional)",
+      },
+    },
+    {
       name: "usedCount",
       type: "number",
       defaultValue: 0,
@@ -167,7 +193,7 @@ export const DiscountCodes: CollectionConfig = {
           `[Discount Code] ${action.toUpperCase()}: ${doc.code} by ${(req.user as any)?.email || "system"}`
         );
       },
-      
+
       // Redis Cache Invalidation
       async ({ doc, operation }) => {
         if (operation === 'create' || operation === 'update') {

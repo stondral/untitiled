@@ -10,7 +10,7 @@ import {
   Rocket, 
   TrendingUp, 
   HelpCircle,
-  AlertCircle,
+  CircleAlert as AlertCircle,
   Calendar,
   CreditCard,
   Clock
